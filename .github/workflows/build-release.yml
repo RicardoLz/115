@@ -68,8 +68,7 @@ jobs:
       - name: 编译并组装发布包
         if: steps.check.outputs.skip == 'false'
         shell: pwsh
-        env:
-          VCVARS64: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat
+        # MSVC 环境由脚本内 vswhere 自动探测（不再硬编码 VS 路径，镜像更新不受影响）
         run: ./src/scripts/build-release-package.ps1 -OutDir "$env:RUNNER_TEMP\release-out"
 
       - name: 上传构建产物（Actions Artifact）
